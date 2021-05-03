@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@android:color/black"
+    tools:context=".JoinQuiz.JoinQuizActivity">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:textStyle="bold"
+        android:letterSpacing="0.06"
+        android:text="@string/join_the_quiz"
+        android:textColor="@color/text_green_color"
+        android:fontFamily="@font/bebas"
+        android:textSize="30sp"/>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="45dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        app:cardBackgroundColor="@color/square_bg_color"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="30dp"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/enter_quiz_id"
+                android:fontFamily="@font/bangers"
+                android:textSize="25sp"
+                android:letterSpacing="0.05"
+                android:gravity="center"
+                android:textColor="@android:color/white"/>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tl_quiz_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/TextInputLayoutStyle"
+                android:textColorHint="@color/text_input_color_stroke"
+                android:layout_marginTop="20dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_quiz_id"
+                    android:textColor="@android:color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/btn_continue_to_quiz"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:backgroundTint="@null"
+                app:layout_dodgeInsetEdges="bottom"
+                android:text="Continue"
+                android:layout_marginTop="50dp"
+                android:layout_below="@id/tv_empty_here"
+                android:textSize="15sp"
+                android:background="@android:color/holo_green_dark"
+                android:textStyle="bold"
+                android:padding="8dp"/>
+            <com.airbnb.lottie.LottieAnimationView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:lottie_loop="true"
+                app:lottie_autoPlay="true"
+                app:lottie_fileName="loadinganim.json"
+                android:id="@+id/lottie_loading_jointhequiz"/>
+        </LinearLayout>
+        <!--#2B2B2B #202020-->
+    </com.google.android.material.card.MaterialCardView>
+
+</LinearLayout>

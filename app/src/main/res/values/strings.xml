@@ -1,0 +1,49 @@
+<resources>
+    <string name="app_name">Quiz YourSelf</string>
+    <string name="about_app">Create your own quiz in minutes!\nShare it with your mates\nLet them play and see the result</string>
+    <string name="quiz_yourself">Quiz YourSelf</string>
+    <string name="Continue_with_google">Continue with google</string>
+    <string name="open">open</string>
+    <string name="close">close</string>
+    <string name="join_a_quiz">Join a quiz</string>
+    <string name="app_description">Create your quiz\nor\nJoin a quiz\n\nLet the fun begin !</string>
+    <string-array name="total_question_spinner">
+        <item>5</item>
+        <item>10</item>
+        <item>15</item>
+        <item>20</item>
+        <item>25</item>
+        <item>30</item>
+        <item>35</item>
+        <item>40</item>
+        <item>45</item>
+        <item>50</item>
+        <item>55</item>
+        <item>60</item>
+        <item>75</item>
+        <item>80</item>
+        <item>85</item>
+        <item>90</item>
+        <item>95</item>
+        <item>100</item>
+    </string-array>
+    <string-array name="total_option_spinner">
+        <item>2</item>
+        <item>4</item>
+        <item>6</item>
+        <item>8</item>
+        <item>10</item>
+    </string-array>
+    <string name="example_desc">Lorem Ipsum is simply dummy text of the printing and
+typesetting industry. Lorem Ipsum has been the industry\'s
+standard dummy text ever since the 1500s, when an unknown
+printer took a galley of type and scrambled it to make a
+type specimen book. It has survived not only five centuries,
+but also the leap into electronic typesetting,
+remaining essentially unchanged. </string>
+    <string name="example_line_desc">Lorem Ipsum is simply dummy text of the printing and
+typesetting industry.</string>
+    <string name="enter_quiz_id">ENTER QUIZ ID</string>
+    <string name="join_the_quiz">JOIN THE QUIZ !!</string>
+    <string name="quiz_instruction">\n1. Quiz will be autosubmitted if you fail to submit it at last\n\n2. Quiz will start and end strictly according to the given time. So you will lose time if you join the quiz late.\n\n3. If you switch to any other apps the test will be autosubmitted</string>
+</resources>

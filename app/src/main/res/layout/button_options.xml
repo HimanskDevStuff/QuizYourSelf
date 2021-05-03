@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginTop="8dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <Button
+        android:id="@+id/btn_option_quizStarted"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/example_line_desc"
+        app:backgroundTint="@null"
+        android:layout_marginTop="12dp"
+        android:textAlignment="viewStart"
+        android:paddingStart="10dp"
+        android:textColor="@android:color/white"
+        android:background="@drawable/grey_white_button_bg"
+        android:textSize="15sp"
+        android:textAllCaps="false"
+        android:padding="6dp"/>
+</LinearLayout>

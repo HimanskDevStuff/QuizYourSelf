@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="15dp"
+    android:background="@android:color/black"
+    tools:context=".JoinQuiz.QuizSubmitted">
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_width="250dp"
+        android:layout_height="300dp"
+        android:layout_gravity="center"
+        app:lottie_fileName="uploadinganim.json"
+        android:id="@+id/lottie_loading_quizFinished"
+        app:lottie_loop="true"
+        app:lottie_autoPlay="true"/>
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_width="250dp"
+        android:layout_height="300dp"
+        android:layout_gravity="center"
+        app:lottie_fileName="uploadedanim.json"
+        android:id="@+id/lottie_uploaded_quizFinished"
+        app:lottie_loop="true"
+        android:visibility="gone"
+        app:lottie_autoPlay="true"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:id="@+id/ll_success_quizSubmitted"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="YOUR ANSWERS SUBMITTED SUCCESSFULLY !"
+            android:id="@+id/tv_QuizUploaded_quizFinished"
+            android:textSize="23sp"
+            android:fontFamily="@font/bangers"
+            android:letterSpacing="0.05"
+            android:gravity="center"
+            android:textStyle=""
+            android:textColor="@android:color/holo_green_light"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Thanks for taking the quiz "
+            android:id="@+id/tv_thanku_quizFinished"
+            android:textSize="23sp"
+            android:fontFamily="@font/bangers"
+            android:letterSpacing="0.05"
+            android:gravity="center"
+            android:textStyle=""
+            android:textColor="@android:color/white"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="100dp"
+            android:gravity="center"
+            android:textStyle="bold|italic"
+            android:text="Result will be available in joined quiz sections"/>
+        <Button
+            android:id="@+id/btn_Go_TO_JOINED_QUIZ"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:backgroundTint="@null"
+            android:layout_marginTop="15dp"
+            android:textStyle="bold"
+            android:padding="8dp"
+            app:layout_dodgeInsetEdges="bottom"
+            android:textColor="@android:color/white"
+            android:background="@drawable/black_white_button_bg"
+            android:text="GO TO JOINED QUIZES"
+            />
+    </LinearLayout>
+
+
+</LinearLayout>

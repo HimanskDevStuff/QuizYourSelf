@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "295523097425",
+    "project_id": "quiz-yourself-2e42d",
+    "storage_bucket": "quiz-yourself-2e42d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:295523097425:android:658d9af92647ba09659170",
+        "android_client_info": {
+          "package_name": "com.example.quizyourself"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "295523097425-0fvq7ei4bt5p5fdr6ql6kpu1l2da7dek.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDoeFM9NGnUaTCPPM91rIBv2n_kdQxVXRM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "295523097425-0fvq7ei4bt5p5fdr6ql6kpu1l2da7dek.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

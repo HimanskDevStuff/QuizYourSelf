@@ -1,0 +1,11 @@
+package com.example.quizyourself.Constants
+
+object Constants {
+   val ROOT_SHAREDPREFERENCES = "ROOT_SHAREDPREF"
+   val USERNAME_SHAREDPREF = "USERNAME_SHAREDPREF"
+   val EMAIL_SHAREDPREF = "EMAIL_SHAREDPREF"
+   val NAME = "NAME"
+   val EMAIL = "EMAIL"
+   val CREATED_QUESTION="CREATED_QUESTIONS"
+   val JOINED_QUIZES="JOINED_QUIZES"
+}
