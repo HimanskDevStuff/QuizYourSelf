@@ -9,12 +9,14 @@ import android.view.View
 import android.widget.Toast
 import com.example.quizyourself.Constants.ConstantsFireStore
 import com.example.quizyourself.Constants.ConstantsPutExtra
+import com.example.quizyourself.Constants.ConstantsQuizInfo
 import com.example.quizyourself.Data.QuizData
 import com.example.quizyourself.R
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_each_quiz_details.*
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 class eachQuizDetailsActivity : AppCompatActivity() {
     val firestore = FirebaseFirestore.getInstance()
@@ -75,7 +77,8 @@ class eachQuizDetailsActivity : AppCompatActivity() {
                 tv_eachQuizEnd.text=sdf.format(mycal.time)
 
                 //Total questions
-                tv_eachQuizTotalQues.text=quizDetails!!.TOTAL_QUES
+                var participants =it.get(ConstantsQuizInfo.ATTEMPTED_BY) as ArrayList<String>
+                tv_eachQuizParticipants.text = participants.size.toString()
 
                 //Started or not
                 mycal= Calendar.getInstance()
