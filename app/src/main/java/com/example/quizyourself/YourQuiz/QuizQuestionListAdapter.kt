@@ -18,7 +18,6 @@ class QuizQuestionListAdapter(val quesDataList : List<Pair<String,Any>>): Recycl
         val quesDesc = itemView.findViewById<TextView>(R.id.tv_quesDescQuizQuestionList)
         val corrOpt = itemView.findViewById<TextView>(R.id.tv_corrOptQuizQuestionList)
         val options = itemView.findViewById<TextView>(R.id.tv_OptQuizQuestionList)
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QuizQuestionListHolder {
@@ -36,14 +35,13 @@ class QuizQuestionListAdapter(val quesDataList : List<Pair<String,Any>>): Recycl
         holder.quesDesc.text=quesMapList.get(ConstantsQuestionInfo.QUES_DESC).toString()
         //Get corrOption String
         var corrOption =quesMapList.get(ConstantsQuestionInfo.QUES_CORR_OPT).toString()
-
         //Add options
         var optionMapList : Map<String,Any> = quesMapList.get(ConstantsQuestionInfo.OPTION) as Map<String, Any>
         var ctr=0
         for ((key,value) in optionMapList){
             ctr++
             //init correction option,corrOption=Option 1 or Option 2...
-            if(corrOption.contains(key))
+            if(corrOption == value)
                 holder.corrOpt.text="$key. $value"
             holder.options.append("$key. $value")
             if(ctr!=optionMapList.size)
