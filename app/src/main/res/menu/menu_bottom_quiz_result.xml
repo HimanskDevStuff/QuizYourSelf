@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/resultDetailsFragment"
+        android:icon="@drawable/ic_result"
+        android:title="Result" />
+    <item
+        android:icon="@drawable/ic_ranking"
+        android:id="@+id/rankingFragment"
+        android:title="Ranking"/>
+</menu>

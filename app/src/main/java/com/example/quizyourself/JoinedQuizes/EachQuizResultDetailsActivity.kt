@@ -1,5 +1,6 @@
 package com.example.quizyourself.JoinedQuizes
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -8,6 +9,7 @@ import android.view.View
 import com.example.quizyourself.Constants.ConstantsFireStore
 import com.example.quizyourself.Constants.ConstantsPutExtra
 import com.example.quizyourself.Data.QuizResultData
+import com.example.quizyourself.JoinedQuizes.QuizResult.ResultActivity
 import com.example.quizyourself.R
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_each_quiz_details.*
@@ -46,6 +48,10 @@ class EachQuizResultDetailsActivity : AppCompatActivity() {
         currTimeMillis = System.currentTimeMillis()
         Log.d("MY",currTimeMillis.toString())
         loadQuizDetailsFromFirestore()
+
+        btn_seeResult.setOnClickListener{
+            startActivity(Intent(this,ResultActivity::class.java))
+        }
     }
 
     private fun loadQuizDetailsFromFirestore() {

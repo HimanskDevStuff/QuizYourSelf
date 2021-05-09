@@ -46,4 +46,6 @@ typesetting industry.</string>
     <string name="enter_quiz_id">ENTER QUIZ ID</string>
     <string name="join_the_quiz">JOIN THE QUIZ !!</string>
     <string name="quiz_instruction">\n1. Quiz will be autosubmitted if you fail to submit it at last\n\n2. Quiz will start and end strictly according to the given time. So you will lose time if you join the quiz late.\n\n3. If you switch to any other apps the test will be autosubmitted</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

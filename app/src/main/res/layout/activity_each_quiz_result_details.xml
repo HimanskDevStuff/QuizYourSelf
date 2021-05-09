@@ -231,7 +231,6 @@
                 android:text="SEE RESULT"
                 app:layout_dodgeInsetEdges="bottom"
                 app:backgroundTint="@null"
-                android:enabled="false"
                 android:visibility="gone"
                 android:layout_margin="20dp"
                 android:textColor="@android:color/white"
