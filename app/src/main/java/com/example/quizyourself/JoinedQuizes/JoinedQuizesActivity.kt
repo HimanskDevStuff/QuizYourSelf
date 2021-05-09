@@ -23,6 +23,8 @@ class JoinedQuizesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_joined_quizes)
 
+        supportActionBar?.title="Joined Quizes"
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         //Init
         firestore = FirebaseFirestore.getInstance()
         quizResultDetailsList= arrayListOf()
@@ -64,5 +66,10 @@ class JoinedQuizesActivity : AppCompatActivity() {
 
             }
         }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return super.onSupportNavigateUp()
     }
 }

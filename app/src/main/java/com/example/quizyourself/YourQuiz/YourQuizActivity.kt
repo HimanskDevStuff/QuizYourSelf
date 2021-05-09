@@ -20,6 +20,7 @@ import com.example.quizyourself.Data.QuizData
 import com.example.quizyourself.MainPage
 import com.example.quizyourself.R
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_your_quiz.*
 
@@ -31,7 +32,7 @@ class YourQuizActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_your_quiz)
         var actionBar = supportActionBar
-        actionBar?.title = "Your Quiz"
+        actionBar?.title = "Your Quizes"
         actionBar?.setDisplayHomeAsUpEnabled(true)
         //init
         fireStoreDB= FirebaseFirestore.getInstance()
@@ -46,6 +47,7 @@ class YourQuizActivity : AppCompatActivity() {
     private fun loadQuizDataFromFirestore() {
         fireStoreDB.collection(ConstantsFireStore.QUIZ_DATA_ROOT).get().addOnSuccessListener {
            if(it.isEmpty){
+               //When all the quizData is deleted for everyone
                recyclerview_YourQuiz.visibility=View.GONE
                ll_yourQuiz_lottie.visibility=View.VISIBLE
            }else {
@@ -59,65 +61,83 @@ class YourQuizActivity : AppCompatActivity() {
 
                    }
                }
-               val adap = YourQuizAdapter(quizDetails)
-               recyclerview_YourQuiz.adapter = adap
-               recyclerview_YourQuiz.layoutManager = LinearLayoutManager(this)
 
-               //Item
-               ItemTouchHelper(
-                   object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT){
-                       override fun onMove(
-                           recyclerView: RecyclerView,
-                           viewHolder: RecyclerView.ViewHolder,
-                           target: RecyclerView.ViewHolder
-                       ): Boolean {
-                           return false
-                       }
+               //when no quizes are there for this particular user
+               if(quizDetails.isEmpty()){
+                   recyclerview_YourQuiz.visibility=View.GONE
+                   ll_yourQuiz_lottie.visibility=View.VISIBLE
+               }
+               else {
+                   val adap = YourQuizAdapter(quizDetails)
+                   recyclerview_YourQuiz.adapter = adap
+                   recyclerview_YourQuiz.layoutManager = LinearLayoutManager(this)
 
-                       override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                            //Delete from firestore
-                           var quizId=quizDetails.get(viewHolder.adapterPosition).QUIZ_ID
-                           var tempQuizDetails = quizDetails.get(viewHolder.adapterPosition)
-                           var check = false
-
-                           //delete from arraylist
-                           //first remove from arraylist
-                           quizDetails.removeAt(viewHolder.adapterPosition)
-                           //then notify recyclerview that this item is deleted so that it can refersh that item only
-                           adap.notifyDataSetChanged()
-                           val snack = Snackbar.make(coordinator_copyquizId_yourQuiz,"Item Deleted ",Snackbar.LENGTH_LONG)
-                           snack.setTextColor(Color.parseColor("#FFFFFF"))
-                           snack.setActionTextColor(Color.parseColor("#00BEE1"))
-                           snack.setAction("UNDO"){
-                               //add data again
-                               quizDetails.add(tempQuizDetails)
-                               adap.notifyDataSetChanged()
-                               check=true
+                   //Item
+                   ItemTouchHelper(
+                       object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+                           override fun onMove(
+                               recyclerView: RecyclerView,
+                               viewHolder: RecyclerView.ViewHolder,
+                               target: RecyclerView.ViewHolder
+                           ): Boolean {
+                               return false
                            }
-                           snack.show()
-                           //wait for Snackbar.LENTH_LONG time then check if undo is pressed then dont delete from firestore
-                           //else delete
-                           Handler(Looper.getMainLooper()).postDelayed({
-                               if(check==false){
-                                   fireStoreDB.collection(ConstantsFireStore.QUIZ_DATA_ROOT).document(quizId).delete().addOnSuccessListener {
-                                       if(it==null) {
 
-                                       }
-                                   }
+                           override fun onSwiped(
+                               viewHolder: RecyclerView.ViewHolder,
+                               direction: Int
+                           ) {
+                               var quizId = quizDetails.get(viewHolder.adapterPosition).QUIZ_ID
+                               var tempQuizDetails = quizDetails.get(viewHolder.adapterPosition)
+                               var check = false
+
+                               //delete from arraylist
+                               //first remove from arraylist
+                               quizDetails.removeAt(viewHolder.adapterPosition)
+                               //then notify recyclerview that this item is deleted so that it can refersh that item only
+                               adap.notifyDataSetChanged()
+                               val snack = Snackbar.make(
+                                   coordinator_copyquizId_yourQuiz,
+                                   "Item Deleted ",
+                                   Snackbar.LENGTH_LONG
+                               )
+                               snack.setTextColor(Color.parseColor("#FFFFFF"))
+                               snack.setActionTextColor(Color.parseColor("#00BEE1"))
+                               snack.setAction("UNDO") {
+                                   //add data again
+                                   quizDetails.add(tempQuizDetails)
+                                   adap.notifyDataSetChanged()
+                                   check = true
                                }
-                           },3000)
+                               snack.show()
+                               //wait for Snackbar.LENTH_LONG time then check if undo is pressed then dont delete from firestore
+                               //else delete
+                               Handler(Looper.getMainLooper()).postDelayed({
+                                   if (check == false) {
+                                       //Delete quiz from firestore
+                                       fireStoreDB.collection(ConstantsFireStore.QUIZ_DATA_ROOT)
+                                           .document(quizId).delete()
+                                       //delete quiz from created quizes in userData
+                                       fireStoreDB.collection(ConstantsFireStore.USER_DATA_ROOT).document(userEmail).update(
+                                          Constants.CREATED_QUESTION,FieldValue.arrayRemove(quizId)
+                                       )
+
+                                   }
+                               }, 3000)
 
 
-                           //show empty animation
-                           if (quizDetails.isEmpty())
-                               ll_yourQuiz_lottie.visibility = View.VISIBLE
+                               //show empty animation
+                               if (quizDetails.isEmpty()) {
+                                   recyclerview_YourQuiz.visibility =View.GONE
+                                   ll_yourQuiz_lottie.visibility = View.VISIBLE
+                               }
 
 
+                           }
 
                        }
-
-                   }
-               ).attachToRecyclerView(recyclerview_YourQuiz)
+                   ).attachToRecyclerView(recyclerview_YourQuiz)
+               }
 
            }
         }.addOnFailureListener{

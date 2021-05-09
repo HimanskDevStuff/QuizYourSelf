@@ -53,6 +53,7 @@ class StartingTheQuizActivity : AppCompatActivity() {
         //get system time in millis
         currSystemTimeMillis=System.currentTimeMillis()
 
+
         btn_startQuiz_start.setOnClickListener{
             val i = Intent(this,QuizStartedActivity::class.java)
             i.putExtra(ConstantsPutExtra.QUIZ_QUESTIONS,quizQuestions as Serializable)

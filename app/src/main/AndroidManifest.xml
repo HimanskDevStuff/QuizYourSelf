@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".JoinedQuizes.JoinedQuizesActivity"></activity>
+        <activity android:name=".JoinedQuizes.EachQuizResultDetailsActivity"></activity>
+        <activity android:name=".JoinedQuizes.JoinedQuizesActivity" />
         <activity android:name=".JoinQuiz.QuizSubmitted" />
         <activity android:name=".JoinQuiz.QuizStartedActivity" />
         <activity android:name=".JoinQuiz.StartingTheQuizActivity" />

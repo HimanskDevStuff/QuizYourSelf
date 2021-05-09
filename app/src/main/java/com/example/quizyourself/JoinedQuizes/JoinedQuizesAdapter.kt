@@ -1,11 +1,13 @@
 package com.example.quizyourself.JoinedQuizes
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.TextureView
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.quizyourself.Constants.ConstantsPutExtra
 import com.example.quizyourself.Data.QuizResultData
 import com.example.quizyourself.R
 import org.w3c.dom.Text
@@ -19,6 +21,7 @@ class JoinedQuizesAdapter(val quizResultDetailList : ArrayList<QuizResultData>) 
         val quizstartdate = itemView.findViewById<TextView>(R.id.tv_quizDate_JoinedQuizes)
         val quizStartTime = itemView.findViewById<TextView>(R.id.tv_startTime_JoinedQuizes)
         val quizEndTime = itemView.findViewById<TextView>(R.id.tv_endTime_JoinedQuizes)
+        val eachRowView = itemView
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderJoinedQuizes {
@@ -51,5 +54,11 @@ class JoinedQuizesAdapter(val quizResultDetailList : ArrayList<QuizResultData>) 
         cal.set(Calendar.YEAR,currQuizResultData.START_YEAR.toInt())
         cal.set(Calendar.DAY_OF_MONTH,currQuizResultData.START_DATE.toInt())
         holder.quizstartdate.text=sdf.format(cal.time)
+
+        holder.eachRowView.setOnClickListener{
+            val i = Intent(holder.eachRowView.context,EachQuizResultDetailsActivity::class.java)
+            i.putExtra(ConstantsPutExtra.QUIZ_ID,currQuizResultData.QUIZ_ID)
+            holder.eachRowView.context.startActivity(i)
+        }
     }
 }
