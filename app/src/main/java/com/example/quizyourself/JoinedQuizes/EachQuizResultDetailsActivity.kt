@@ -50,7 +50,8 @@ class EachQuizResultDetailsActivity : AppCompatActivity() {
         loadQuizDetailsFromFirestore()
 
         btn_seeResult.setOnClickListener{
-            startActivity(Intent(this,ResultActivity::class.java))
+            val i = Intent(this,ResultActivity::class.java)
+            startActivity(i)
         }
     }
 

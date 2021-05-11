@@ -7,4 +7,5 @@ object ConstantsPutExtra {
     val TOTAL_QUESTION = "TOTAL_QUESTION"
     val QUIZ_TIME_MILLIS = "QUIZ_TIME_MILLIS"
     val END_TIME_MILLIS = "END_TIME_MILLIS"
+    val QUIZ_RESULT = "QUIZ_RESULT"
 }
