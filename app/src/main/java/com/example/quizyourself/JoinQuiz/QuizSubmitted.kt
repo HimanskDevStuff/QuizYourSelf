@@ -53,7 +53,7 @@ class QuizSubmitted : AppCompatActivity() {
             val eachQuesDetailMap = eachQuesPair.second as MutableMap<String,Any>
             if(eachQuesDetailMap[ConstantAnsweredInfo.CHOOSEN_OPTION]==eachQuesDetailMap[ConstantsQuestionInfo.QUES_CORR_OPT]){
                 eachQuesDetailMap.put(ConstantAnsweredInfo.SCORE,"1")
-               quizQuestion[pos]=eachQuesPair.copy(second = eachQuesDetailMap)
+                quizQuestion[pos]=eachQuesPair.copy(second = eachQuesDetailMap)
                 totalScore++
             }
             else
@@ -72,7 +72,9 @@ class QuizSubmitted : AppCompatActivity() {
     private fun uploadedAnsToFirestore() {
         //Add user who attemped quiz
         firestore.collection(ConstantsFireStore.QUIZ_DATA_ROOT).document(quizID).update(
-            ConstantsQuizInfo.ATTEMPTED_BY,FieldValue.arrayUnion(userMail)
+            mapOf(
+                "${ConstantsQuizInfo.ATTEMPTED_BY}.$userMail" to totalScore
+            )
         )
         //Add this quiz to joined quiz of user data
         firestore.collection(ConstantsFireStore.USER_DATA_ROOT).document(userMail).update(
