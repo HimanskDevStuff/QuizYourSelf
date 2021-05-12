@@ -166,7 +166,7 @@ class AddQuestionsActivity : AppCompatActivity() {
                         var uniqueQuizID = firestoreDB.collection(ConstantsFireStore.QUIZ_DATA_ROOT).document().id
                         quizDetail.put(ConstantsQuizInfo.QUIZ_ID,uniqueQuizID)
                         //Add empty parameter of number of people attempted
-                        quizDetail.put(ConstantsQuizInfo.ATTEMPTED_BY, arrayListOf<String>())
+                        quizDetail.put(ConstantsQuizInfo.ATTEMPTED_BY, hashMapOf<String,String>())
 
                         //Adding Data to firestore !! Finally !
                         firestoreDB.collection(ConstantsFireStore.QUIZ_DATA_ROOT).document(uniqueQuizID).set(quizDetail).addOnCompleteListener {

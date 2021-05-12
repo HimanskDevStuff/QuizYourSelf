@@ -17,6 +17,7 @@ import kotlinx.android.synthetic.main.activity_each_quiz_details.*
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 class eachQuizDetailsActivity : AppCompatActivity() {
     val firestore = FirebaseFirestore.getInstance()
@@ -77,7 +78,7 @@ class eachQuizDetailsActivity : AppCompatActivity() {
                 tv_eachQuizEnd.text=sdf.format(mycal.time)
 
                 //Total questions
-                var participants =it.get(ConstantsQuizInfo.ATTEMPTED_BY) as ArrayList<String>
+                var participants =it.get(ConstantsQuizInfo.ATTEMPTED_BY) as HashMap<String,String>
                 tv_eachQuizParticipants.text = participants.size.toString()
 
                 //Started or not

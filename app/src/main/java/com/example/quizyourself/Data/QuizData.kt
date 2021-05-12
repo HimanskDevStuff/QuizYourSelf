@@ -16,7 +16,8 @@ data class QuizData(
     @Expose var START_MONTH: String="",
     @Expose var START_YEAR: String="",
     @Expose var QUIZ_ID: String="",
-    @Expose var QUIZ_QUESTIONS: Map<String, Any> = mapOf()
+    @Expose var QUIZ_QUESTIONS: Map<String, Any> = mapOf(),
+    @Expose var ATTEMPTED_BY : Map<String,Any> = mapOf()
 )
 /*
 class QuizData(

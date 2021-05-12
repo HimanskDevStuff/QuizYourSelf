@@ -56,6 +56,7 @@ class EachQuizResultDetailsActivity : AppCompatActivity() {
         btn_seeResult.setOnClickListener{
             val i = Intent(this,ResultActivity::class.java)
             i.putExtra(ConstantsPutExtra.QUIZ_ID,quizId)
+            i.putExtra(ConstantsPutExtra.EMAIL,userEmail)
             startActivity(i)
         }
     }

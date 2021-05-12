@@ -13,6 +13,9 @@
         <argument
             android:name="quizid"
             app:argType="string" />
+        <argument
+            android:name="email"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/resultDetailsFragment"
@@ -21,6 +24,9 @@
         tools:layout="@layout/fragment_result_details">
         <argument
             android:name="quizid"
+            app:argType="string" />
+        <argument
+            android:name="email"
             app:argType="string" />
     </fragment>
 </navigation>
