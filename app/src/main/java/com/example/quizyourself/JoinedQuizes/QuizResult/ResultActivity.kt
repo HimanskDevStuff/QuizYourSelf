@@ -19,6 +19,7 @@ import kotlinx.android.synthetic.main.activity_result.*
 class ResultActivity : AppCompatActivity() {
     lateinit var navController: NavController
     lateinit var quizResultResult: ArrayList<QuizResultData>
+    lateinit var quizID: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_result)
@@ -27,5 +28,11 @@ class ResultActivity : AppCompatActivity() {
         val navHostFrag = supportFragmentManager.findFragmentById(R.id.frag_host_result) as NavHostFragment
         navController = navHostFrag.findNavController()
         bottomNavResult.setupWithNavController(navController)
+
+        quizID  = intent.getStringExtra(ConstantsPutExtra.QUIZ_ID)!!
+
+        val bundle = Bundle()
+        bundle.putString(ConstantsPutExtra.QUIZ_ID,quizID)
+        navController.setGraph(navController.graph,bundle)
     }
 }

@@ -9,10 +9,18 @@
         android:id="@+id/rankingFragment"
         android:name="com.example.quizyourself.JoinedQuizes.QuizResult.RankingFragment"
         android:label="fragment_ranking"
-        tools:layout="@layout/fragment_ranking" />
+        tools:layout="@layout/fragment_ranking" >
+        <argument
+            android:name="quizid"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/resultDetailsFragment"
         android:name="com.example.quizyourself.JoinedQuizes.QuizResult.ResultDetailsFragment"
         android:label="fragment_result_details"
-        tools:layout="@layout/fragment_result_details" />
+        tools:layout="@layout/fragment_result_details">
+        <argument
+            android:name="quizid"
+            app:argType="string" />
+    </fragment>
 </navigation>
