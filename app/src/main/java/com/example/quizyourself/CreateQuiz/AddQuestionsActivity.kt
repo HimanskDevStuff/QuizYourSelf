@@ -18,10 +18,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.get
 import androidx.core.view.marginTop
 import androidx.core.view.setPadding
-import com.example.quizyourself.Constants.Constants
-import com.example.quizyourself.Constants.ConstantsFireStore
-import com.example.quizyourself.Constants.ConstantsQuestionInfo
-import com.example.quizyourself.Constants.ConstantsQuizInfo
+import com.example.quizyourself.Constants.*
 import com.example.quizyourself.MainPage
 import com.example.quizyourself.R
 import com.example.quizyourself.YourQuiz.YourQuizActivity

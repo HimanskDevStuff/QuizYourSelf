@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
 import android.view.View
+import com.example.quizyourself.Constants.Constants
 import com.example.quizyourself.Constants.ConstantsFireStore
 import com.example.quizyourself.Constants.ConstantsPutExtra
 import com.example.quizyourself.Data.QuizResultData
@@ -26,6 +27,7 @@ class EachQuizResultDetailsActivity : AppCompatActivity() {
     var quizResultList : QuizResultData? = null
     lateinit var firestore: FirebaseFirestore
     lateinit var quizId : String
+    lateinit var userEmail : String
 
     var endMin = 0
     var endHour = 0
@@ -43,6 +45,8 @@ class EachQuizResultDetailsActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         quizId = intent.getStringExtra(ConstantsPutExtra.QUIZ_ID)!!
+        val sharedpref = getSharedPreferences(Constants.ROOT_SHAREDPREFERENCES, MODE_PRIVATE)
+        userEmail = sharedpref.getString(Constants.EMAIL_SHAREDPREF,"")!!
         firestore = FirebaseFirestore.getInstance()
         //currTimeMillis
         currTimeMillis = System.currentTimeMillis()
@@ -56,9 +60,9 @@ class EachQuizResultDetailsActivity : AppCompatActivity() {
     }
 
     private fun loadQuizDetailsFromFirestore() {
-        firestore.collection(ConstantsFireStore.QUIZ_RESULT_ROOT).document(quizId).get().addOnSuccessListener {
+        firestore.collection(ConstantsFireStore.QUIZ_RESULT_ROOT).document(userEmail)
+            .collection(ConstantsFireStore.RESULTS).document(quizId).get().addOnSuccessListener {
             if(it.exists()){
-
                 //Stop shimmering
                 shimmer_quizResult.stopShimmer()
                 shimmer_quizResult.visibility = View.GONE

@@ -3,7 +3,6 @@ package com.example.quizyourself.JoinedQuizes
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.SyncStateContract
 import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.quizyourself.Constants.ConstantAnsweredInfo
@@ -44,19 +43,22 @@ class JoinedQuizesActivity : AppCompatActivity() {
             if(it.isSuccessful){
                 val document=it.result
                 val joinedQuizesIdsList = document?.get(Constants.JOINED_QUIZES) as List<String>
-                firestore.collection(ConstantsFireStore.QUIZ_RESULT_ROOT).get().addOnSuccessListener {
+                firestore.collection(ConstantsFireStore.QUIZ_RESULT_ROOT)
+                    .document(userEmail).collection(ConstantsFireStore.RESULTS)
+                    .get().addOnSuccessListener {
                     if(!it.isEmpty) {
                         for (docs in it) {
                             if(docs.exists()) {
                                 for (joinedQuizesId in joinedQuizesIdsList) {
                                     if (docs.id == joinedQuizesId) {
-                                        quizResultData = docs.toObject(QuizResultData::class.java)
-                                        quizResultDetailsList?.add(quizResultData!!)
+                                        //Upload values in firestore as Pair in arraylist but its converted to map
+                                         quizResultData = docs.toObject(QuizResultData::class.java)
+                                          quizResultDetailsList?.add(quizResultData!!)
+                                        }
                                     }
                                 }
                             }
                         }
-
                         val adap = JoinedQuizesAdapter(quizResultDetailsList!!)
                         recyclerview_joinedQuizes.adapter = adap
                         recyclerview_joinedQuizes.layoutManager = LinearLayoutManager(this)
@@ -66,7 +68,6 @@ class JoinedQuizesActivity : AppCompatActivity() {
 
             }
         }
-    }
 
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()

@@ -73,7 +73,7 @@ class QuizSubmitted : AppCompatActivity() {
         //Add user who attemped quiz
         firestore.collection(ConstantsFireStore.QUIZ_DATA_ROOT).document(quizID).update(
             mapOf(
-                "${ConstantsQuizInfo.ATTEMPTED_BY}.$userMail" to totalScore
+                "${ConstantsQuizInfo.ATTEMPTED_BY}.${userMail.substring(0,userMail.length-4)}" to totalScore
             )
         )
         //Add this quiz to joined quiz of user data
@@ -86,7 +86,10 @@ class QuizSubmitted : AppCompatActivity() {
                quizDetails?.QUIZ_RESULT=quizQuestion.toMap()
                 quizDetails?.TOTAL_SCORE=totalScore.toString()
                 //Add result to joined quizes
-                firestore.collection(ConstantsFireStore.QUIZ_RESULT_ROOT).document(quizID).set(quizDetails!!).addOnCompleteListener{
+                firestore.collection(ConstantsFireStore.QUIZ_RESULT_ROOT)
+                    .document(userMail)
+                    .collection(ConstantsFireStore.RESULTS).document(quizID).set(quizDetails!!)
+                     .addOnCompleteListener{
                     if(it.isSuccessful){
                         lottie_uploaded_quizFinished.visibility= View.VISIBLE
                         lottie_loading_quizFinished.visibility=View.GONE

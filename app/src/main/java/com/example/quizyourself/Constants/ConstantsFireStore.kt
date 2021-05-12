@@ -5,5 +5,6 @@ object ConstantsFireStore {
     val USER_DATA_ROOT = "UserData"
     val CREATED_QUIZES = "CreatedQuizes"
     val QUIZ_RESULT_ROOT = "QUIZ RESULT"
+    val RESULTS = "RESULTS"
 
 }
