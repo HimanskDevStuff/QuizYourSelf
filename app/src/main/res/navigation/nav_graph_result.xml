@@ -24,7 +24,7 @@
         tools:layout="@layout/fragment_result_details">
         <argument
             android:name="quizid"
-            app:argType="string" />
+            app:argType="string"/>
         <argument
             android:name="email"
             app:argType="string" />

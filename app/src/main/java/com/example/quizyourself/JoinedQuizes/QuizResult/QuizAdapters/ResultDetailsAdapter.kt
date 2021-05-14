@@ -43,7 +43,7 @@ class ResultDetailsAdapter(val quizResultDetails : List<Pair<String,Any>>) : Rec
                 holder.choosenOpt.text = "${eachopt.first}. ${eachopt.second}"
             }
             holder.totalOpt.append("${eachopt.first}. ${eachopt.second}")
-            if(opt.size == ctr++)
+            if(opt.size!=ctr++)
                 holder.totalOpt.append("\n\n")
         }
 

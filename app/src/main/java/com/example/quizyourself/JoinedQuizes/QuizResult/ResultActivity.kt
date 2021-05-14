@@ -10,6 +10,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.example.quizyourself.Constants.Constants
 import com.example.quizyourself.Constants.ConstantsPutExtra
 import com.example.quizyourself.Constants.ConstantsQuizInfo
 import com.example.quizyourself.Data.QuizResultData
@@ -27,17 +28,20 @@ class ResultActivity : AppCompatActivity() {
         setContentView(R.layout.activity_result)
         supportActionBar?.title = ""
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        val navHostFrag = supportFragmentManager.findFragmentById(R.id.frag_host_result) as NavHostFragment
-        navController = navHostFrag.findNavController()
+
+        navController = findNavController(R.id.frag_host_result)
+        bottomNavResult.setupWithNavController(navController)
 
         quizID  = intent.getStringExtra(ConstantsPutExtra.QUIZ_ID)!!
         userEmail = intent.getStringExtra(ConstantsPutExtra.EMAIL)!!
 
-        val bundle = Bundle()
-        bundle.putString("quizid",quizID)
-        bundle.putString("email",userEmail)
-        navController.setGraph(navController.graph,bundle)
-        bottomNavResult.setupWithNavController(navController)
+        //Save the quizId and userEmail in sharedPref
+        val sharePref = getSharedPreferences(Constants.ROOT_SHAREDPREFERENCES, MODE_PRIVATE)
+        val edit = sharePref.edit()
+        edit.putString(ConstantsPutExtra.QUIZ_ID,quizID)
+        edit.apply()
+
+
 
     }
 }

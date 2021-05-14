@@ -1,6 +1,9 @@
 package com.example.quizyourself.JoinedQuizes.QuizResult
 
+import android.content.Context.MODE_PRIVATE
 import android.os.Bundle
+import android.util.Log
+import android.view.Display
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,17 +13,20 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.quizyourself.Constants.Constants
 import com.example.quizyourself.Constants.ConstantsFireStore
 import com.example.quizyourself.Constants.ConstantsPutExtra
+import com.example.quizyourself.Constants.ConstantsSaveInstance
 import com.example.quizyourself.Data.QuizResultData
 import com.example.quizyourself.JoinedQuizes.QuizResult.QuizAdapters.ResultDetailsAdapter
 import com.example.quizyourself.R
+import com.google.api.Monitoring
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.fragment_result_details.*
 
 class ResultDetailsFragment : Fragment() {
     lateinit var resultDetails : QuizResultData
-    lateinit var quizID: String
+     var quizID: String?=null
     lateinit var firestore: FirebaseFirestore
-    lateinit var userEmail : String
+     var userEmail : String?=null
+
     val resultDetailsFragmentArgs : ResultDetailsFragmentArgs by navArgs()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,9 +37,9 @@ class ResultDetailsFragment : Fragment() {
 
     private fun initializeResultDetails() {
         firestore.collection(ConstantsFireStore.QUIZ_RESULT_ROOT)
-            .document(userEmail)
+            .document(userEmail!!)
             .collection(ConstantsFireStore.RESULTS)
-            .document(quizID)
+            .document(quizID!!)
             .get().addOnSuccessListener {
                 resultDetails = it.toObject(QuizResultData::class.java)!!
                 val adap = ResultDetailsAdapter(resultDetails.QUIZ_RESULT.toList())
@@ -41,15 +47,23 @@ class ResultDetailsFragment : Fragment() {
                 rv_result_details.layoutManager = LinearLayoutManager(context)
             }
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //get UserEmail and quizID
-       // userEmail = resultDetailsFragmentArgs.email
-       // quizID = resultDetailsFragmentArgs.quizid
-        firestore = FirebaseFirestore.getInstance()
-       // initializeResultDetails()
+
+        val sharedPref = view.context.getSharedPreferences(Constants.ROOT_SHAREDPREFERENCES,MODE_PRIVATE)
+        userEmail = sharedPref.getString(Constants.EMAIL_SHAREDPREF,"")
+        quizID = sharedPref.getString(ConstantsPutExtra.QUIZ_ID,"")
+
+        Log.d("CHECK",userEmail+",$quizID")
+
+          firestore = FirebaseFirestore.getInstance()
+          initializeResultDetails()
     }
 
-
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString(ConstantsSaveInstance.EMAIL,userEmail)
+        outState.putString(ConstantsSaveInstance.QUIZID,quizID)
+    }
 }
