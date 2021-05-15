@@ -1,5 +1,6 @@
 package com.example.quizyourself.JoinedQuizes.QuizResult.QuizAdapters
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,21 +31,31 @@ class ResultDetailsAdapter(val quizResultDetails : List<Pair<String,Any>>) : Rec
 
         holder.quesNo.append(currQues.first)
         holder.quesDesc.text = questInfo[ConstantAnsweredInfo.QUES_DESC].toString()
+        if(questInfo[ConstantAnsweredInfo.SCORE] == 0)
         holder.score.text = "Score : ${questInfo[ConstantAnsweredInfo.SCORE].toString()}"
+        else{
+            holder.score.setTextColor(Color.parseColor(Color.RED.toString()))
+            holder.score.text="Score : 0"
+        }
 
         val opt = questInfo[ConstantAnsweredInfo.OPTION] as HashMap<String,String>
 
         var ctr = 1
+        var checkIfAnswered = true
         for(eachopt in opt.toList()){
             if(eachopt.second == questInfo[ConstantAnsweredInfo.CORRECT_OPT]){
                 holder.corrOpt.text = "${eachopt.first}. ${eachopt.second}"
             }
             if(eachopt.second == questInfo[ConstantAnsweredInfo.CHOOSEN_OPTION]){
                 holder.choosenOpt.text = "${eachopt.first}. ${eachopt.second}"
+                checkIfAnswered = false
             }
             holder.totalOpt.append("${eachopt.first}. ${eachopt.second}")
             if(opt.size!=ctr++)
                 holder.totalOpt.append("\n\n")
+        }
+        if (checkIfAnswered){
+            holder.choosenOpt.text = "Not Answered"
         }
 
     }

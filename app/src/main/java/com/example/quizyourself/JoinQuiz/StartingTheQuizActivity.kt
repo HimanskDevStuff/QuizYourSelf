@@ -142,6 +142,7 @@ class StartingTheQuizActivity : AppCompatActivity() {
                 tv_startsIn_startQuiz.text="Quiz Ended"
                 tv_startsIn_startQuiz.setTextColor(resources.getColor(android.R.color.holo_red_light))
                 lottie_startQuiz.visibility=View.GONE
+                cv_startEndDate.visibility = View.GONE
                 tv_enable_disable_startQuiz.visibility=View.GONE
                 btn_startQuiz_start.visibility=View.GONE
                 lottie_timer_startQuiz.visibility=View.GONE

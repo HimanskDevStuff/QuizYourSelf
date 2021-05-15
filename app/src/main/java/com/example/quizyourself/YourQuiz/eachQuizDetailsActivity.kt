@@ -38,10 +38,7 @@ class eachQuizDetailsActivity : AppCompatActivity() {
             i.putExtra(ConstantsPutExtra.QUIZ_ID,quizId)
             startActivity(i)
         }
-
-        Handler(Looper.getMainLooper()).postDelayed({
-            loadDataAndDisplay()
-        },2000)
+        loadDataAndDisplay()
 
     }
 
@@ -76,8 +73,9 @@ class eachQuizDetailsActivity : AppCompatActivity() {
                 mycal.set(Calendar.HOUR_OF_DAY,quizDetails.END_HOUR.toInt())
                 mycal.set(Calendar.MINUTE,quizDetails.END_MIN!!.toInt())
                 tv_eachQuizEnd.text=sdf.format(mycal.time)
-
-                //Total questions
+                //total question
+                tv_eachQuizTotalQues.text=quizDetails.TOTAL_QUES
+                //Total participants
                 var participants =it.get(ConstantsQuizInfo.ATTEMPTED_BY) as HashMap<String,String>
                 tv_eachQuizParticipants.text = participants.size.toString()
 

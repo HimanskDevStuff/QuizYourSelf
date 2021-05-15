@@ -1,6 +1,7 @@
 package com.example.quizyourself
 
 import android.content.Intent
+import android.content.res.Resources
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -85,6 +86,7 @@ class Home : AppCompatActivity() {
             }
     }
     override fun onStart() {
+        setTheme(R.style.NoActionBarTheme)
         super.onStart()
         // Check if user is signed in (non-null) and update UI accordingly.
         val currentUser = auth.currentUser

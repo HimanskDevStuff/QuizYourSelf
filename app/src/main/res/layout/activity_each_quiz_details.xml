@@ -19,8 +19,7 @@
             android:layout_height="wrap_content"
             android:paddingLeft="13dp"
             android:paddingRight="13dp"
-            android:orientation="vertical"
-            android:layout_marginTop="8dp">
+            android:orientation="vertical">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -29,9 +28,10 @@
                 android:paddingRight="20dp"
                 android:paddingLeft="20dp"
                 android:paddingTop="8dp"
+                android:textStyle="bold"
+                android:letterSpacing="0.03"
+                android:fontFamily="@font/bebas"
                 android:paddingBottom="8dp"
-                android:fontFamily="@font/bangers"
-                android:letterSpacing="0.02"
                 android:textSize="25sp"
                 android:id="@+id/tv_title_yourQuiz"/>
             <androidx.cardview.widget.CardView
@@ -259,10 +259,8 @@
                     android:textColor="#E7E7E7"
                     android:padding="20dp"
                     android:layout_marginLeft="10dp"
-                    android:fontFamily="@font/bangers"
                     android:background="#E7E7E7"
-                    android:letterSpacing="0.09"
-                    android:textSize="21sp" />
+                    android:textSize="22sp" />
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

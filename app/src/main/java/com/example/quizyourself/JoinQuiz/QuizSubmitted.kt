@@ -36,11 +36,14 @@ class QuizSubmitted : AppCompatActivity() {
         val i = intent
         quizID=i.getStringExtra(ConstantsPutExtra.QUIZ_ID)!!
         quizQuestion= i.getStringArrayListExtra(ConstantsPutExtra.QUIZ_QUESTIONS) as ArrayList<Pair<String, Any>>
-        //for((k,v) in quizQuestion)
-       // Log.d("AFTERANS","$k : $v")
-        //Get user mail from sharedpref
+
         userMail=getUserMailFromSharedPref()
 
+        //listeners
+        btn_Go_TO_JOINED_QUIZ.setOnClickListener{
+            startActivity(Intent(this,JoinQuizActivity::class.java))
+            finishAffinity()
+        }
         //cal score
         calculateScore()
         uploadedAnsToFirestore()
