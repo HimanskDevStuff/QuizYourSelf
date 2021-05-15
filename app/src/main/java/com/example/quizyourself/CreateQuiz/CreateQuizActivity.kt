@@ -4,15 +4,11 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.graphics.Color
-import android.media.midi.MidiOutputPort
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.EditText
 import com.example.quizyourself.Constants.Constants
 import com.example.quizyourself.Constants.ConstantsQuizInfo
-import com.example.quizyourself.QuestionList
 import com.example.quizyourself.R
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
@@ -21,9 +17,7 @@ import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_main_page.*
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.HashMap
 import kotlin.collections.LinkedHashMap
-import kotlin.concurrent.timer
 
 class CreateQuizActivity : AppCompatActivity() {
     lateinit var userMail : String

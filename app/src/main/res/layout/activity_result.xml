@@ -6,13 +6,16 @@
     android:layout_height="wrap_content"
     android:background="@android:color/black"
     tools:context=".JoinedQuizes.QuizResult.ResultActivity">
+
     <fragment
+        android:id="@+id/frag_host_result"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="androidx.navigation.fragment.NavHostFragment"
-        app:defaultNavHost = "true"
-        app:navGraph="@navigation/nav_graph_result"
-        android:id="@+id/frag_host_result"/>
+        android:layout_above="@id/bottomNavResult"
+        android:layout_alignParentTop="true"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/nav_graph_result" />
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavResult"
         android:layout_width="match_parent"

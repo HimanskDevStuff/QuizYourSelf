@@ -23,6 +23,8 @@ import com.example.quizyourself.JoinedQuizes.JoinedQuizesActivity
 import com.example.quizyourself.YourQuiz.YourQuizActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot
@@ -33,15 +35,15 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class MainPage : AppCompatActivity() {
-    lateinit var toggle : ActionBarDrawerToggle
-    lateinit var userData : GoogleSignInAccount
+    lateinit var toggle: ActionBarDrawerToggle
+    lateinit var userData: GoogleSignInAccount
     lateinit var firestoreDb: FirebaseFirestore
-    lateinit var sharedPref : SharedPreferences
-    lateinit var edit : SharedPreferences.Editor
+    lateinit var sharedPref: SharedPreferences
+    lateinit var edit: SharedPreferences.Editor
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_page)
-        toggle = ActionBarDrawerToggle(this,drawerLayout,R.string.open,R.string.close)
+        toggle = ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close)
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
@@ -52,19 +54,19 @@ class MainPage : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         //Set create button work
-        btn_createQuiz.setOnClickListener{
+        btn_createQuiz.setOnClickListener {
             btn_createQuiz.setBackgroundResource(R.drawable.black_white_button_bg)
             btn_createQuiz.setTextColor(Color.parseColor("#FFFFFF"))
             startActivity(
-                Intent(this,CreateQuizActivity::class.java)
+                Intent(this, CreateQuizActivity::class.java)
             )
         }
         //set join button
-        btn_joinQuiz.setOnClickListener{
+        btn_joinQuiz.setOnClickListener {
             btn_joinQuiz.setBackgroundResource(R.drawable.white_black_button_bg)
             btn_joinQuiz.setTextColor(Color.parseColor("#000000"))
             startActivity(
-                Intent(this,JoinQuizActivity::class.java)
+                Intent(this, JoinQuizActivity::class.java)
             )
         }
         //set create button style back to normal when back is pressed in next activity
@@ -72,23 +74,40 @@ class MainPage : AppCompatActivity() {
         btn_createQuiz.setTextColor(Color.parseColor("#000000"))
 
         nav.setNavigationItemSelectedListener {
-            when(it.itemId){
+            when (it.itemId) {
                 R.id.Logout -> {
+                    nav.visibility = View.GONE
+                    main_Relativelayout.visibility = View.GONE
+                    lottie_loader_main.visibility = View.VISIBLE
                     FirebaseAuth.getInstance().signOut()
-                    startActivity(Intent(this,Home::class.java))
-                    finish()
+                    GoogleSignIn.getClient(
+                        this, GoogleSignInOptions.Builder(
+                            GoogleSignInOptions.DEFAULT_SIGN_IN
+                        ).build()
+                    ).signOut().addOnSuccessListener {
+                        if (it == null) {
+                            startActivity(Intent(this, Home::class.java))
+                            finish()
+                        } else {
+                            nav.visibility = View.VISIBLE
+                            main_Relativelayout.visibility = View.VISIBLE
+                            lottie_loader_main.visibility = View.GONE
+                        }
+                    }
+
                 }
-                R.id.YourQuiz ->{
-                    startActivity(Intent(this,YourQuizActivity::class.java))
+                R.id.YourQuiz -> {
+                    startActivity(Intent(this, YourQuizActivity::class.java))
                 }
-                R.id.JoinedQuiz ->{
-                    startActivity(Intent(this,JoinedQuizesActivity::class.java))
+                R.id.JoinedQuiz -> {
+                    startActivity(Intent(this, JoinedQuizesActivity::class.java))
                 }
             }
             true
         }
 
     }
+
     private fun saveUserDetails() {
         var name: String
         var email: String
@@ -114,11 +133,12 @@ class MainPage : AppCompatActivity() {
             displayGreetMessage(name)
 
             //Save userdetails to sharedpref
-            sharedPref = getSharedPreferences(Constants.ROOT_SHAREDPREFERENCES, Context.MODE_PRIVATE)
-            edit=sharedPref.edit()
+            sharedPref =
+                getSharedPreferences(Constants.ROOT_SHAREDPREFERENCES, Context.MODE_PRIVATE)
+            edit = sharedPref.edit()
             edit.putString(Constants.USERNAME_SHAREDPREF, name)
             edit.putString(Constants.EMAIL_SHAREDPREF, email)
-            edit.putString(Constants.DP_URL,imageUrl)
+            edit.putString(Constants.DP_URL, imageUrl)
             edit.apply()
             //Save to firestore UserInfo
             var data = hashMapOf<String, Any>(
@@ -155,15 +175,13 @@ class MainPage : AppCompatActivity() {
                                     snackbar.show()
                                 }
                             }
-                    }
-                    else{
+                    } else {
                         //Make layout visible
                         main_Relativelayout.visibility = View.VISIBLE
                         //Make Loader Gone
                         lottie_loader_main.visibility = View.GONE
                     }
-                }
-                else{
+                } else {
                     var snackbar = Snackbar.make(
                         coordinator,
                         "Registration Failed !",
@@ -182,24 +200,23 @@ class MainPage : AppCompatActivity() {
         }
     }
 
-    private fun displayGreetMessage(name : String){
-        var cal= Calendar.getInstance().time
+    private fun displayGreetMessage(name: String) {
+        var cal = Calendar.getInstance().time
         var currHour = cal.hours.toString().toInt()
-        if(currHour>=12 && currHour<=16)
-            tv_welcome_user.text="Good Afternoon, $name !"
-        else if(currHour>=17 && currHour<=21)
-            tv_welcome_user.text="Good Evening, $name !"
-        else if(currHour>=22 && currHour<=4)
-        {
-            tv_welcome_user.text="Good Night, $name !"
-            tv_greet.text="Sleep time, Go sleep !"
-        }
-        else{
-            tv_welcome_user.text="Good Morning, $name !"
+        if (currHour >= 12 && currHour <= 16)
+            tv_welcome_user.text = "Good Afternoon, $name !"
+        else if (currHour >= 17 && currHour <= 21)
+            tv_welcome_user.text = "Good Evening, $name !"
+        else if (currHour >= 22 && currHour <= 4) {
+            tv_welcome_user.text = "Good Night, $name !"
+            tv_greet.text = "Sleep time, Go sleep !"
+        } else {
+            tv_welcome_user.text = "Good Morning, $name !"
         }
     }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if(toggle.onOptionsItemSelected(item)){
+        if (toggle.onOptionsItemSelected(item)) {
             return true
         }
         return super.onOptionsItemSelected(item)

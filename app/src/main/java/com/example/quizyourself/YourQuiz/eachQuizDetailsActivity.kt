@@ -38,10 +38,13 @@ class eachQuizDetailsActivity : AppCompatActivity() {
             i.putExtra(ConstantsPutExtra.QUIZ_ID,quizId)
             startActivity(i)
         }
+        btn_seeRanking.setOnClickListener{
+            val i = Intent(this,RankingDetailActivity::class.java)
+            i.putExtra(ConstantsPutExtra.QUIZ_ID,quizId)
+            startActivity(i)
+        }
+        loadDataAndDisplay()
 
-        Handler(Looper.getMainLooper()).postDelayed({
-            loadDataAndDisplay()
-        },2000)
 
     }
 
@@ -53,7 +56,7 @@ class eachQuizDetailsActivity : AppCompatActivity() {
                 shimmer_yourQuiz.visibility= View.GONE
                 scrollview_eachQuizDetails.visibility=View.VISIBLE
                 btn_seeQuestions.visibility=View.VISIBLE
-
+                btn_seeRanking.visibility = View.VISIBLE
                 val quizDetails = it.toObject(QuizData::class.java)
                 //set quizDetails in views
                 tv_title_yourQuiz.text=quizDetails?.QUIZ_TITLE
@@ -76,8 +79,9 @@ class eachQuizDetailsActivity : AppCompatActivity() {
                 mycal.set(Calendar.HOUR_OF_DAY,quizDetails.END_HOUR.toInt())
                 mycal.set(Calendar.MINUTE,quizDetails.END_MIN!!.toInt())
                 tv_eachQuizEnd.text=sdf.format(mycal.time)
-
-                //Total questions
+                //total question
+                tv_eachQuizTotalQues.text=quizDetails.TOTAL_QUES
+                //Total participants
                 var participants =it.get(ConstantsQuizInfo.ATTEMPTED_BY) as HashMap<String,String>
                 tv_eachQuizParticipants.text = participants.size.toString()
 
