@@ -18,7 +18,7 @@ object ConstantsQuizInfo {
      val QUESTIONS ="QUIZ_QUESTIONS"
      val QUIZ_ID="QUIZ_ID"
      val ATTEMPTED_BY="ATTEMTED_BY"
-     val SCORE = "0"
+     val SCORE = "SCORE"
 
      //query constants
      val QuizInfoList = "QuizInfoList"

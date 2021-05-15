@@ -44,4 +44,9 @@ class ResultActivity : AppCompatActivity() {
 
 
     }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return super.onSupportNavigateUp()
+    }
 }

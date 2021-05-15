@@ -48,7 +48,6 @@ class ResultDetailsAdapter(val quizResultDetails : List<Pair<String,Any>>) : Rec
         }
 
     }
-
     override fun getItemCount(): Int {
         return quizResultDetails.size
     }
