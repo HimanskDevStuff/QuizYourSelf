@@ -27,7 +27,6 @@ class ResultDetailsFragment : Fragment() {
     lateinit var firestore: FirebaseFirestore
      var userEmail : String?=null
 
-    val resultDetailsFragmentArgs : ResultDetailsFragmentArgs by navArgs()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

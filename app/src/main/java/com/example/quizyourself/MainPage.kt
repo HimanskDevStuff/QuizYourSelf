@@ -118,6 +118,7 @@ class MainPage : AppCompatActivity() {
             edit=sharedPref.edit()
             edit.putString(Constants.USERNAME_SHAREDPREF, name)
             edit.putString(Constants.EMAIL_SHAREDPREF, email)
+            edit.putString(Constants.DP_URL,imageUrl)
             edit.apply()
             //Save to firestore UserInfo
             var data = hashMapOf<String, Any>(

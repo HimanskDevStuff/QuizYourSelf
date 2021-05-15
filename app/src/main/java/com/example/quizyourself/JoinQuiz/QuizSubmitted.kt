@@ -56,49 +56,62 @@ class QuizSubmitted : AppCompatActivity() {
                 quizQuestion[pos]=eachQuesPair.copy(second = eachQuesDetailMap)
                 totalScore++
             }
-            else
-            {
+            else {
                 eachQuesDetailMap.put(ConstantAnsweredInfo.SCORE,"0")
             }
         }
-
     }
 
-    private fun getUserMailFromSharedPref(): String{
+    private fun getUserMailFromSharedPref(): String {
         val sharedpref = getSharedPreferences(Constants.ROOT_SHAREDPREFERENCES, Context.MODE_PRIVATE)
         return sharedpref.getString(Constants.EMAIL_SHAREDPREF,"")!!
     }
 
     private fun uploadedAnsToFirestore() {
+
         //Add user who attemped quiz
+
+        //Get Data from sharedPref
+        val sharedPref = getSharedPreferences(Constants.ROOT_SHAREDPREFERENCES, MODE_PRIVATE)
+        val name = sharedPref.getString(Constants.USERNAME_SHAREDPREF,"")
+        val photoURL = sharedPref.getString(Constants.DP_URL,"")
+        val UserDetailsMap = mapOf(
+            Constants.NAME to name!!,
+            Constants.DP_URL to photoURL,
+            Constants.EMAIL to userMail,
+            ConstantsQuizInfo.SCORE to totalScore
+        )
         firestore.collection(ConstantsFireStore.QUIZ_DATA_ROOT).document(quizID).update(
             mapOf(
-                "${ConstantsQuizInfo.ATTEMPTED_BY}.${userMail.substring(0,userMail.length-4)}" to totalScore
+                "${ConstantsQuizInfo.ATTEMPTED_BY}.${userMail.substring(0,userMail.length-4)}" to UserDetailsMap
             )
         )
+
         //Add this quiz to joined quiz of user data
         firestore.collection(ConstantsFireStore.USER_DATA_ROOT).document(userMail).update(
             Constants.JOINED_QUIZES,FieldValue.arrayUnion(quizID)
         )
+
         firestore.collection(ConstantsFireStore.QUIZ_DATA_ROOT).document(quizID).get().addOnSuccessListener {
             if(it.exists()){
+
                quizDetails= it.toObject(QuizResultData::class.java)
                quizDetails?.QUIZ_RESULT=quizQuestion.toMap()
-                quizDetails?.TOTAL_SCORE=totalScore.toString()
+               quizDetails?.TOTAL_SCORE=totalScore.toString()
+
                 //Add result to joined quizes
                 firestore.collection(ConstantsFireStore.QUIZ_RESULT_ROOT)
                     .document(userMail)
                     .collection(ConstantsFireStore.RESULTS).document(quizID).set(quizDetails!!)
                      .addOnCompleteListener{
                     if(it.isSuccessful){
-                        lottie_uploaded_quizFinished.visibility= View.VISIBLE
-                        lottie_loading_quizFinished.visibility=View.GONE
-                        ll_success_quizSubmitted.visibility=View.VISIBLE
+                        lottie_uploaded_quizFinished.visibility = View.VISIBLE
+                        lottie_loading_quizFinished.visibility = View.GONE
+                        ll_success_quizSubmitted.visibility = View.VISIBLE
                     }
                 }
             }
-            else
-            {
+            else {
                 Toast.makeText(this,"Doesn't exist",Toast.LENGTH_LONG).show()
             }
         }
